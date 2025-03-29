@@ -1,1 +1,2 @@
-# Righting-Writing
+Righting Writing ✍️
+A proposed benchmark framework for improving OCR accuracy through post-processing with fine-tuned Large Language Models (LLMs). This project aims to correct common OCR errors—such as misspellings, missing words, and structural inconsistencies—by refining the raw output of OCR systems using LLMs. The benchmark focuses on both English and Arabic, particularly in challenging scenarios like handwritten and low-quality scanned texts, where traditional OCR systems often struggle. Righting Writing evaluates and compares the effectiveness of LLM-based post-processing across languages and error types, aiming to set new standards for OCR refinement in low-resource and complex script environments.
