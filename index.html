@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NLP Class Project | Fall 2024 CSCI 5541 | University of Minnesota</title>
+  <link rel="stylesheet" href="./webpage_files/bulma.min.css" />
+  <link rel="stylesheet" href="./webpage_files/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link href="./webpage_files/css2" rel="stylesheet">
+  <link href="./webpage_files/css" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+    <h1 style="font-family: 'Lato', sans-serif;">Righting Writing</h1>
+    <h4 style="font-family: 'Lato', sans-serif;">Spring 2025 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+    <h4 style="font-family: 'Lato', sans-serif;">Inksight</h4>
+
+    <div class="authors-wrapper">
+      <div class="author-container"><p>Yassin Ali</p></div>
+      <div class="author-container"><p>MJ Corey</p></div>
+      <div class="author-container"><p>Akshat Ghoshal</p></div>
+      <div class="author-container"><p>Jordan Johnson</p></div>
+    </div>
+
+    <br/>
+
+    <div class="authors-wrapper">
+      <div class="publication-links">
+        <span class="link-block">
+          <a href="https://github.com/Y-Elsayed/Righting-Writing" target="_blank" class="external-link button is-normal is-rounded is-dark is-outlined">
+            <span>Final Report</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://github.com/Y-Elsayed/Righting-Writing" target="_blank" class="external-link button is-normal is-rounded is-dark is-outlined">
+            <span>Code</span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <hr>
+    <h2 id="abstract">Abstract</h2>
+    <p>
+      Optical Character Recognition (OCR) remains inconsistent for complex scripts, particularly handwritten Arabic. Our project, <em>Righting Writing</em>, constructs a pipeline that integrates OCR with Large Language Models (LLMs) for output correction. Using the KITAB-Bench dataset and four OCR systems (EasyOCR, PaddleOCR, Tesseract, and AIN-7B), outputs were passed through ChatGPT-4o and ALLam-7B for refinement. Results show LLMs significantly reduce Word and Character Error Rates, especially when contextual information is rich. This demonstrates a viable multilingual approach to document comprehension and an efficient alternative to state-of-the-art vision-language models.
+    </p>
+    <hr>
+
+    <h2 id="teaser">Teaser Figure</h2>
+    <p class="sys-img"><img src="./webpage_files/FinalPipeline.png" alt="Pipeline Diagram"></p>
+    <hr>
+
+    <h2 id="introduction">Introduction / Background / Motivation</h2>
+    <p><b>What was the objective, and what problem were you addressing?</b></p>
+    <p>
+      Optical Character Recognition (OCR) is a valuable tool for digitizing text, but its capabilities are often limited. <em>Righting Writing</em> refines the frequently imperfect OCR output using Large Language Models to produce text that more accurately reflects the original content.
+    </p>
+
+    <p><b>What are the current methods, and what limitations do they have?</b></p>
+    <p>
+      Current OCR systems work by identifying individual characters in scanned images. However, they often struggle with complex handwriting and poor image quality. While Vision-Language Models (VLMs) offer promise, they are computationally demanding.
+    </p>
+
+    <p><b>Why does this matter?</b></p>
+    <p>
+      Developing models that can reliably interpret handwritten documents could reduce the need for manual transcription. If an OCR-to-LLM pipeline proves effective, it could serve as a more accessible alternative to VLMs for accurate and efficient document processing.
+    </p>
+    <hr>
+
+    <h2 id="approach">Approach</h2>
+    <p><b>What did you do, and why?</b></p>
+    <p>
+      We utilized the KITAB-Bench dataset, which contains scanned Arabic texts, processed by four OCR systems: EasyOCR, PaddleOCR, Tesseract, and AIN-7B. We then refined the outputs using ChatGPT-4o and ALLam-7B. Accuracy was evaluated using Word Error Rate (WER), Character Error Rate (CER), and BERTScore. We hypothesized that LLMs could leverage context to correct OCR errors effectively.
+    </p>
+
+    <p><b>What challenges were expected or encountered?</b></p>
+    <p>
+      A key concern was locating accurate models and data for Arabic OCR. Fortunately, suitable tools were found. However, some ground-truth texts contained their own errors. LLMs often "corrected" these, leading to increased divergence despite semantic improvement. This revealed a tradeoff between literal accuracy and text clarity.
+    </p>
+    <hr>
+
+    <h2 id="results">Results</h2>
+    <p><b>How was success measured, and what were the outcomes?</b></p>
+    <p>
+      Evaluation relied on WER, CER, and BERTScore. Improvements were most evident with ChatGPT-4o, which decreased WER by 8–10% on average for mid-range baseline scores. ALLam-7B underperformed due to its limited instruction-following capability. Documents with very low or very high WER were more difficult to improve.
+    </p>
+
+    <div style="text-align: center;">
+      <img style="height: 400px; border: 2px solid black;" src="./webpage_files/fig1.png" alt="WER Change">
+      <p style="font-size: 12px">
+        Average change in Word Error Rate across baseline categories. Points above the red line indicate improvements.
+      </p>
+    </div>
+
+    <p>
+      Our pipeline performed best on long-form subdatasets like hindawi, historicalbooks, and patsocr, where ample context aided correction. In contrast, single-word datasets such as evarest and adab showed minimal improvement. BERTScore gains confirmed that semantic content was well-preserved during LLM post-processing.
+    </p>
+
+    <div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
+      <img style="height: 300px; border: 2px solid black;" src="./webpage_files/fig3.png" alt="WER Improvement by Subdataset">
+      <img style="height: 300px; border: 2px solid black;" src="./webpage_files/fig2.png" alt="BERTScore Improvement">
+    </div>
+    <p style="font-size: 12px">
+      Documents from longer subdatasets showed higher gains across WER and BERTScore. Short or one-word documents provided too little context for meaningful correction.
+    </p>
+
+    <p>
+      Figure 4 illustrates document improvement rates across different baseline WER brackets. The pipeline yielded the most consistent improvements in documents with 20–80% baseline WER. Documents outside this range were either too noisy or already near optimal, limiting gains.
+    </p>
+
+    <div style="text-align: center;">
+      <img style="height: 400px; border: 2px solid black;" src="./webpage_files/fig4.png" alt="WER Range Improvement">
+      <p style="font-size: 12px">
+        Improvement distribution by initial WER range. Peak performance occurred in the mid-range (20–80%).
+      </p>
+    </div>
+
+    <p>
+      Compared to Qwen2-VL—a strong vision-language model—the OCR + LLM pipeline delivered comparable or superior results. This indicates that our approach is a valid, computationally cost-effective alternative for Arabic document processing.
+    </p>
+
+    <h2 id="conclusion">Conclusion and Future Work</h2>
+    <p>
+      This project demonstrates that integrating OCR with LLM post-processing can improve text accuracy in multilingual contexts. While promising, the pipeline has room for refinement.
+    </p>
+
+    <p>
+      Future work should include fine-tuning LLMs on OCR-specific outputs to better handle noisy or historically inconsistent text. This could help retain stylistic features present in ground-truth documents.
+    </p>
+
+    <p>
+      Additionally, incorporating OCR confidence scores or top-k predictions could allow LLMs to make better-informed corrections using masked language modeling to fill in text with high contextual accuracy.
+    </p>
+
+    <p>
+      In conclusion, the synergy between OCR systems and LLMs offers a compelling framework for document digitization. As these technologies mature, automated reading of complex texts will become more accurate, scalable, and accessible.
+    </p>
+    <hr>
+  </div>
+</body>
+</html>
